@@ -25,6 +25,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 import org.eclipse.scout.rt.platform.Bean;
 import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.eclipse.scout.rt.platform.config.PlatformConfigProperties.JobManagerCorePoolSizeProperty;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.filter.AlwaysFilter;
 import org.eclipse.scout.rt.platform.filter.AndFilter;
 import org.eclipse.scout.rt.platform.filter.IFilter;
@@ -278,6 +279,7 @@ public class FutureSet {
     final Set<Boolean> success = new HashSet<>();
 
     for (final IFuture<?> future : values(filter)) {
+      ThreadInterruptUtil.logCallCancel(this, "cancel", interruptIfRunning, future);
       success.add(future.cancel(interruptIfRunning));
     }
 

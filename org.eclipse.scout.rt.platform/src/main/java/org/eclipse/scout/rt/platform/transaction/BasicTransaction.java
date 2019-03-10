@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.scout.rt.platform.Bean;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.util.concurrent.FutureCancelledError;
 import org.eclipse.scout.rt.platform.util.concurrent.IFunction;
 import org.slf4j.Logger;
@@ -217,6 +218,7 @@ public class BasicTransaction implements ITransaction {
       if (m_cancelled) {
         return true;
       }
+      ThreadInterruptUtil.logCancel(this, "cancel", mayInterruptIfRunning, null);
       m_cancelled = true;
       addFailure(new FutureCancelledError("Transaction cancelled"));
     }

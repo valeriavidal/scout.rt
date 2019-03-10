@@ -151,6 +151,7 @@ public class RunContext implements IAdaptable {
    */
   @SuppressWarnings("squid:S1181")
   public <RESULT, EXCEPTION extends Throwable> RESULT call(final Callable<RESULT> callable, final Class<? extends IExceptionTranslator<EXCEPTION>> exceptionTranslator) throws EXCEPTION {
+    ThreadInterruptUtil.logInvoke(this, "call", m_runMonitor);
     final ThreadInterrupter threadInterrupter = new ThreadInterrupter(Thread.currentThread(), m_runMonitor);
     try {
       return this.<RESULT> createCallableChain().call(callable);
@@ -552,6 +553,7 @@ public class RunContext implements IAdaptable {
 
     @Override
     public boolean cancel(final boolean interruptIfRunning) {
+      ThreadInterruptUtil.logCancel(this, "cancel", interruptIfRunning, m_thread);
       if (!m_cancelled.compareAndSet(false, true)) {
         return false;
       }
@@ -560,6 +562,7 @@ public class RunContext implements IAdaptable {
         synchronized (this) {
           // Interrupt in synchronized block to ensure the thread still to be associated upon interruption.
           if (m_thread != null) {
+            ThreadInterruptUtil.logInterrupt(this, "cancel", m_thread);
             m_thread.interrupt();
           }
         }

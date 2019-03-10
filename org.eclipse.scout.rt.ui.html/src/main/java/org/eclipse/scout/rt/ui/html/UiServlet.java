@@ -31,6 +31,7 @@ import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.eclipse.scout.rt.platform.context.CorrelationId;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunContexts;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.exception.DefaultExceptionTranslator;
 import org.eclipse.scout.rt.platform.util.StringUtility;
 import org.eclipse.scout.rt.platform.util.concurrent.IRunnable;
@@ -145,6 +146,7 @@ public class UiServlet extends AbstractHttpServlet {
 
   @Override
   protected void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    ThreadInterruptUtil.detectAndClearThreadInterruption(this, "doPost");
     m_httpServletControl.doDefaults(this, req, resp);
     try {
       createServletRunContext(req, resp).run(new IRunnable() {

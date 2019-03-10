@@ -30,6 +30,7 @@ import org.eclipse.scout.rt.platform.chain.callable.CallableChain;
 import org.eclipse.scout.rt.platform.chain.callable.ICallableDecorator;
 import org.eclipse.scout.rt.platform.context.RunContext;
 import org.eclipse.scout.rt.platform.context.RunMonitor;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.exception.DefaultRuntimeExceptionTranslator;
 import org.eclipse.scout.rt.platform.exception.IExceptionTranslator;
 import org.eclipse.scout.rt.platform.exception.IThrowableWithContextInfo;
@@ -189,12 +190,14 @@ public class JobFutureTask<RESULT> extends FutureTask<RESULT> implements IFuture
    * Method invoked once this task gets cancelled, and is invoked only once.
    */
   protected void cancelled(final boolean interruptIfRunning) {
+    ThreadInterruptUtil.logCallCancel(this, "cancelled", interruptIfRunning, m_runMonitor);
     m_runMonitor.cancel(interruptIfRunning);
 
     // Interrupt a possible runner, but only if not running on behalf of a RunContext. Otherwise, interruption was already done by RunContext.
     if (interruptIfRunning && m_input.getRunContext() == null) {
       final Thread runner = m_runner;
       if (runner != null) {
+        ThreadInterruptUtil.logInterrupt(this, "cancelled", runner);
         runner.interrupt();
       }
     }
@@ -316,6 +319,7 @@ public class JobFutureTask<RESULT> extends FutureTask<RESULT> implements IFuture
 
   @Override
   public boolean cancel(final boolean interruptIfRunning) {
+    ThreadInterruptUtil.logCancel(this, "cancel", interruptIfRunning, m_runner);
     if (super.cancel(false)) { // Interrupt running thread later (if applicable), so that it may query 'RunMonitor.CURRENT.get().isCancelled()' upon interruption.
       cancelled(interruptIfRunning);
       return true;
@@ -545,6 +549,7 @@ public class JobFutureTask<RESULT> extends FutureTask<RESULT> implements IFuture
    * Restores the thread's interrupted status because cleared by catching {@link java.lang.InterruptedException}.
    */
   protected void restoreInterruptionStatus() {
+    ThreadInterruptUtil.logInterrupt(this, "restoreInterruptionStatus", Thread.currentThread());
     Thread.currentThread().interrupt();
   }
 

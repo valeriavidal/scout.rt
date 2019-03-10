@@ -77,6 +77,7 @@ public class RunMonitor implements ICancellable {
       return false;
     }
 
+    ThreadInterruptUtil.logCancel(this, "cancel", interruptIfRunning, null);
     synchronized (m_cancellationLock) {
       if (m_cancelled) { // double-checked locking
         return false;
@@ -88,6 +89,7 @@ public class RunMonitor implements ICancellable {
     // Cancel the Cancellables outside the lock.
     boolean success = true;
     for (final ICancellable cancellable : getCancellables()) {
+      ThreadInterruptUtil.logCallCancel(this, "cancel", interruptIfRunning, cancellable);
       if (!cancel(cancellable, interruptIfRunning)) {
         success = false;
       }
@@ -101,6 +103,7 @@ public class RunMonitor implements ICancellable {
    */
   public void registerCancellable(final ICancellable cancellable) {
     if (m_cancelled) {
+      ThreadInterruptUtil.logCallCancel(this, "registerCancellable", true, cancellable);
       cancel(cancellable, true);
       return;
     }
@@ -127,6 +130,7 @@ public class RunMonitor implements ICancellable {
 
     // Cancel the Cancellable outside the lock.
     if (cancel) {
+      ThreadInterruptUtil.logCallCancel(this, "registerCancellable", true, cancellable);
       cancel(cancellable, true);
     }
   }
@@ -157,6 +161,7 @@ public class RunMonitor implements ICancellable {
   protected boolean cancel(final ICancellable cancellable, final boolean interruptIfRunning) {
     try {
       if (!cancellable.isCancelled()) {
+        ThreadInterruptUtil.logCallCancel(this, "cancelImpl", interruptIfRunning, cancellable);
         return cancellable.cancel(interruptIfRunning);
       }
       return false; // same behavior like Java Future.

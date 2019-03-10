@@ -45,6 +45,7 @@ import org.eclipse.scout.rt.platform.Platform;
 import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.eclipse.scout.rt.platform.context.PropertyMap;
 import org.eclipse.scout.rt.platform.context.RunMonitor;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.exception.ExceptionHandler;
 import org.eclipse.scout.rt.platform.exception.PlatformError;
 import org.eclipse.scout.rt.platform.filter.IFilter;
@@ -437,10 +438,12 @@ public class UiSession implements IUiSession {
   }
 
   protected void startDesktop(Map<String, String> sessionStartupParams) {
+    ThreadInterruptUtil.detectAndClearThreadInterruption(this, "startDesktop");
     final IFuture<Void> future = ModelJobs.schedule(new IRunnable() {
 
       @Override
       public void run() throws Exception {
+        ThreadInterruptUtil.detectAndClearThreadInterruption(this, "startDesktop$1");
         IDesktop desktop = m_clientSession.getDesktop();
         IDesktopUIFacade uiFacade = desktop.getUIFacade();
         boolean desktopOpen = desktop.isOpened();
@@ -451,6 +454,7 @@ public class UiSession implements IUiSession {
         // in that case the client state shall be recovered rather than following the deep link
         PropertyMap.CURRENT.get().put(DeepLinkUrlParameter.HANDLE_DEEP_LINK, !isPersistent() || !desktopOpen);
         uiFacade.fireGuiAttached();
+        ThreadInterruptUtil.detectAndClearThreadInterruption(this, "startDesktop$2");
         m_attachedToDesktop = true;
       }
     }, ModelJobs.newInput(

@@ -26,6 +26,7 @@ import org.eclipse.scout.rt.platform.Platform;
 import org.eclipse.scout.rt.platform.config.CONFIG;
 import org.eclipse.scout.rt.platform.config.PlatformConfigProperties.ApplicationVersionProperty;
 import org.eclipse.scout.rt.platform.context.RunContexts;
+import org.eclipse.scout.rt.platform.context.ThreadInterruptUtil;
 import org.eclipse.scout.rt.platform.exception.DefaultExceptionTranslator;
 import org.eclipse.scout.rt.platform.exception.PlatformError;
 import org.eclipse.scout.rt.platform.resource.MimeType;
@@ -66,6 +67,7 @@ public class JsonMessageRequestHandler extends AbstractUiServletRequestHandler {
 
   @Override
   public boolean handlePost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+    ThreadInterruptUtil.detectAndClearThreadInterruption(this, "handlePost");
     // serve only /json
     String pathInfo = req.getPathInfo();
     if (ObjectUtility.notEquals(pathInfo, "/json")) {
@@ -156,6 +158,7 @@ public class JsonMessageRequestHandler extends AbstractUiServletRequestHandler {
   }
 
   protected void handleJsonRequest(IUiSession uiSession, JsonRequest jsonRequest, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException {
+    ThreadInterruptUtil.detectAndClearThreadInterruption(this, "handleJsonRequest");
     // If client sent ACK#, cleanup response history accordingly
     uiSession.confirmResponseProcessed(jsonRequest.getAckSequenceNo());
 
