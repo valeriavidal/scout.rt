@@ -33,12 +33,25 @@ public class ThreadInterruptUtil {
   }
 
   public static void logCancel(Object obj, String method, boolean interrupt, Thread runner) {
-    LOG.info("CANCEL {}@{}.{}, interrupt={}, runner={}",
-        obj.getClass().getSimpleName(),
-        Integer.toHexString(obj.hashCode()),
-        method,
-        interrupt,
-        runner);
+    String curName = Thread.currentThread().getName();
+    String runnerName = runner != null ? runner.getName() : null;
+    if (curName != null && runnerName != null && curName.startsWith("http-") && runnerName.startsWith("http-")) {
+      LOG.info("CANCEL {}@{}.{}, interrupt={}, runner={}",
+          obj.getClass().getSimpleName(),
+          Integer.toHexString(obj.hashCode()),
+          method,
+          interrupt,
+          runner,
+          new Exception("Caller trace"));
+    }
+    else {
+      LOG.info("CANCEL {}@{}.{}, interrupt={}, runner={}",
+          obj.getClass().getSimpleName(),
+          Integer.toHexString(obj.hashCode()),
+          method,
+          interrupt,
+          runner);
+    }
   }
 
   public static void logInterrupt(Object obj, String method, Thread thread) {

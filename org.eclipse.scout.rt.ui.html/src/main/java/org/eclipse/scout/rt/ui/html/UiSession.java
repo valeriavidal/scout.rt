@@ -913,6 +913,8 @@ public class UiSession implements IUiSession {
   public void logout() {
     LOG.info("Logging out from UI session with ID {} [clientSessionId={}, processingJsonRequest={}]", m_uiSessionId, getClientSessionId(), isProcessingJsonRequest());
 
+    ThreadInterruptUtil.detectAndClearThreadInterruption(this, "logout");
+
     // Redirect client to "you are now logged out" screen
     if (isProcessingJsonRequest()) {
       boolean platformValid = (Platform.get() != null && Platform.get().getState() == IPlatform.State.PlatformStarted);
