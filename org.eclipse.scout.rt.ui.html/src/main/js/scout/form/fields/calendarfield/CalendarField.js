@@ -8,13 +8,17 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  */
-scout.CalendarField = function() {
-  scout.CalendarField.parent.call(this);
-  this._addWidgetProperties(['calendar']);
-};
-scout.inherits(scout.CalendarField, scout.FormField);
+import {FormField} from '../../../index';
 
-scout.CalendarField.prototype._render = function() {
+export default class CalendarField extends FormField {
+
+constructor() {
+  super();
+  this._addWidgetProperties(['calendar']);
+}
+
+
+_render() {
   this.addContainer(this.$parent, 'calendar-field');
   this.addLabel();
   this.addStatus();
@@ -22,4 +26,5 @@ scout.CalendarField.prototype._render = function() {
     this.calendar.render();
     this.addField(this.calendar.$container);
   }
-};
+}
+}
