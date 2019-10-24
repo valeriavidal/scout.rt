@@ -151,6 +151,7 @@ public class Migration {
   protected void createJsImports() {
     m_context.getWorkingCopies().stream()
         .filter(wc -> wc.getPath().toString().endsWith(".js"))
+        .filter(wc -> m_context.getJsFile(wc) != null)
         .forEach(wc -> MigrationUtility.insertImports(wc, m_context));
   }
 
