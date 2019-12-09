@@ -429,6 +429,8 @@ export {default as FileChooserFieldAdapter} from './form/fields/filechooserfield
 export {default as FileChooserFieldBrowseKeyStroke} from './form/fields/filechooserfield/FileChooserFieldBrowseKeyStroke';
 export {default as FileChooserFieldDeleteKeyStroke} from './form/fields/filechooserfield/FileChooserFieldDeleteKeyStroke';
 export {default as GroupBox} from './form/fields/groupbox/GroupBox';
+export {default as GroupBoxHeader} from './form/fields/groupbox/GroupBoxHeader';
+export {default as GroupBoxTitle} from './form/fields/groupbox/GroupBoxTitle';
 export {default as GroupBoxGridConfig} from './form/fields/groupbox/GroupBoxGridConfig';
 export {default as GroupBoxAdapter} from './form/fields/groupbox/GroupBoxAdapter';
 export {default as GroupBoxLayout} from './form/fields/groupbox/GroupBoxLayout';
@@ -657,13 +659,12 @@ export {default as LogoutApp} from './login/LogoutApp';
 export {default as LogoutBox} from './login/LogoutBox';
 
 import * as self from './index.js';
-
-export default self;
-
 // Add all functions from the scout object to the scout object on the window
 // Note: the scout object on the window still needs its own scout object (window.scout.scout).
 // It is required when the eclipse-core/scout is mapped as external webpack library to window.scout
 import * as scout from './scout';
+
+export default self;
 
 var windowScout = {...self, ...scout};
 

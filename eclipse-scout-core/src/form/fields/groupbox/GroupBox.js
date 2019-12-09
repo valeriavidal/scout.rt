@@ -17,7 +17,6 @@ import {
   FormField,
   GroupBoxGridConfig,
   GroupBoxLayout,
-  GroupBoxMenuItemsOrder,
   HAlign,
   HtmlComponent,
   LogicalGridData,
@@ -43,10 +42,10 @@ export default class GroupBox extends CompositeField {
     this._addCloneProperties(['menuBarVisible', 'bodyLayoutConfig', 'borderDecoration', 'borderVisible', 'expandable', 'expanded', 'gridColumnCount', 'scrollable', 'subLabel']);
 
     this.fields = [];
-    this.menus = [];
-    this.menuBarVisible = true;
-    this.menuBarPosition = GroupBox.MenuBarPosition.AUTO;
-    this.menuBarEllipsisPosition = MenuBar.EllipsisPosition.RIGHT;
+    // this.menus = [];
+    // this.menuBarVisible = true;
+    // this.menuBarPosition = GroupBox.MenuBarPosition.AUTO;
+    // this.menuBarEllipsisPosition = MenuBar.EllipsisPosition.RIGHT;
     this.notification = null;
     this.bodyLayoutConfig = null;
     this.borderDecoration = GroupBox.BorderDecoration.AUTO;
@@ -94,10 +93,13 @@ export default class GroupBox extends CompositeField {
       constType: GroupBox.MenuBarPosition
     }]);
     this._setBodyLayoutConfig(this.bodyLayoutConfig);
-    this.menuBar = scout.create('MenuBar', {
-      parent: this,
-      menuOrder: new GroupBoxMenuItemsOrder()
+    this.header = scout.create('GroupBoxHeader', {
+      parent: this
     });
+    // this.menuBar = scout.create('MenuBar', {
+    //   parent: this,
+    //   menuOrder: new GroupBoxMenuItemsOrder()
+    // });
     this._setFields(this.fields);
     this._setMainBox(this.mainBox);
     this._updateMenuBar();
@@ -366,7 +368,7 @@ export default class GroupBox extends CompositeField {
   _setMainBox(mainBox) {
     this._setProperty('mainBox', mainBox);
     if (this.mainBox) {
-      this.menuBar.setCssClass('main-menubar');
+      this.header.menuBar.setCssClass('main-menubar');
       if (this.scrollable === null) {
         this.setScrollable(true);
       }
@@ -470,7 +472,7 @@ export default class GroupBox extends CompositeField {
       return scout.create('ButtonAdapterMenu',
         ButtonAdapterMenu.adaptButtonProperties(button, {
           parent: this,
-          menubar: this.menuBar,
+          menubar: this.header.menuBar,
           button: button,
           // initially defaultMenu should only be set if defaultButton is set to true, false should not be mapped as the default defaultMenu = null setting
           // would be overridden if this default null setting is overridden MenuBar.prototype.updateDefaultMenu would not consider these entries anymore
@@ -520,13 +522,14 @@ export default class GroupBox extends CompositeField {
   }
 
   _getCurrentMenus() {
-    if (this.menuBarVisible) {
+    if (this.header.menuBarVisible) {
       return [];
     }
     return super._getCurrentMenus();
   }
 
   setMenuBarVisible(visible) {
+    this.header.setMenuBarVisible(visible);
     this.setProperty('menuBarVisible', visible);
   }
 
