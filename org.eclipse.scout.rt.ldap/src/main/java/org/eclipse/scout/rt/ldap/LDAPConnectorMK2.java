@@ -123,7 +123,7 @@ public class LDAPConnectorMK2 implements ILDAPConnector {
     LOG.entry();
     boolean result = false;
 
-    if (p.getSuperadmin().equals("1") && p.getSuperadmin_login().equals(username) && p.getSuperadmin_pass().equals(new String(password))) {
+    if (p.isSuperadmin() && p.getSuperadmin_login().equals(username) && p.getSuperadmin_pass().equals(new String(password))) {
 
       LOG.warn("superadmin access granted");
       result = true;

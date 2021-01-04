@@ -11,9 +11,7 @@ public class LDAPPropertyValidator implements IConfigurationValidator {
 
   @Override
   public boolean isValid(String key, String value) {
-
     if (key.equalsIgnoreCase(LDAPProperties.AUTH_LDAP_PROPERTY)) {
-
       if (value != null && value.length() == 1 && "01".indexOf(value) >= 0) {
         LOG.debug("Property: [{}] value: [{}] is valid", key, value);
         return true;

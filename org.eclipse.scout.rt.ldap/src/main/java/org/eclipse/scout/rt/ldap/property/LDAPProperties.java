@@ -1,5 +1,6 @@
 package org.eclipse.scout.rt.ldap.property;
 
+import org.eclipse.scout.rt.platform.config.AbstractBooleanConfigProperty;
 import org.eclipse.scout.rt.platform.config.AbstractIntegerConfigProperty;
 import org.eclipse.scout.rt.platform.config.AbstractStringConfigProperty;
 
@@ -21,7 +22,7 @@ public final class LDAPProperties {
 
   public static final String AUTH_LDAP_SUPERADMIN_PROPERTY = AUTH_LDAP_PROPERTIES_NS + ".superadmin";
   public static final String AUTH_LDAP_SUPERADMIN_PROPERTY_DESC = "Enable local superadmin account";
-  public static final String AUTH_LDAP_SUPERADMIN_PROPERTY_DEFAULT = "0";
+  public static final boolean AUTH_LDAP_SUPERADMIN_PROPERTY_DEFAULT = false;
 
   public static final String AUTH_LDAP_SUPERADMIN_LOGIN_PROPERTY = AUTH_LDAP_PROPERTIES_NS + ".superadmin.login";
   public static final String AUTH_LDAP_SUPERADMIN_LOGIN_PROPERTY_DESC = "Superadmin account name";
@@ -200,7 +201,7 @@ public final class LDAPProperties {
     }
   }
 
-  public static class AuthLDAPSuperadminProperty extends AbstractStringConfigProperty {
+  public static class AuthLDAPSuperadminProperty extends AbstractBooleanConfigProperty {
 
     @Override
     public String getKey() {
@@ -213,7 +214,7 @@ public final class LDAPProperties {
     }
 
     @Override
-    public String getDefaultValue() {
+    public Boolean getDefaultValue() {
       return AUTH_LDAP_SUPERADMIN_PROPERTY_DEFAULT;
     }
   }

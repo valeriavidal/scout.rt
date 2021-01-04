@@ -36,7 +36,7 @@ public class LDAPConnectorProperties {
   private String ts_trustlevel = null;
   private String ts_ocsp = null;
 
-  private String superadmin = null;
+  private boolean superadmin;
   private String superadmin_login = null;
   private String superadmin_pass = null;
 
@@ -231,7 +231,7 @@ public class LDAPConnectorProperties {
     return ts_ocsp;
   }
 
-  public String getSuperadmin() {
+  public boolean isSuperadmin() {
     return superadmin;
   }
 

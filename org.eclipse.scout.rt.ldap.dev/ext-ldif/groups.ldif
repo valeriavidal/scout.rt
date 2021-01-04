@@ -1,0 +1,8 @@
+dn: ou=groups,dc=helloworld,dc=org
+objectclass: organizationalUnit
+
+dn: ou=services,dc=helloworld,dc=org
+objectclass: organizationalUnit
+
+dn: ou=users,dc=helloworld,dc=org
+objectclass: organizationalUnit

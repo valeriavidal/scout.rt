@@ -153,7 +153,7 @@ public class LDAPConnectorMK3 implements ILDAPConnector {
     LOG.entry();
     boolean result = false;
 
-    if (p.getSuperadmin().equals("1")
+    if (p.isSuperadmin()
         && p.getSuperadmin_login().equals(username)
         && p.getSuperadmin_pass().equals(new String(password))) {
 
