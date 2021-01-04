@@ -10,12 +10,9 @@
  */
 package org.eclipse.scout.rt.ldap.dev;
 
-import org.eclipse.scout.rt.platform.job.Jobs;
-
 public final class LDAPDev {
 
   public static void main(String[] args) throws Exception {
-    Jobs.getJobManager();//XXX
     LDAPShell shell = new LDAPShell();
     //shell.ldapadd("/ext-ldif/groups.ldif");
     //shell.ldapadd("/ext-ldif/users.ldif");
