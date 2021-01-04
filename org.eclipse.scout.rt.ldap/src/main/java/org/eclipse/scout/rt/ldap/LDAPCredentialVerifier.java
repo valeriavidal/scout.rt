@@ -5,9 +5,9 @@ import java.util.concurrent.Callable;
 
 import javax.security.auth.Subject;
 
-import org.eclipse.scout.rt.client.context.ClientRunContexts;
 import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.context.RunContext;
+import org.eclipse.scout.rt.platform.context.RunContexts;
 import org.eclipse.scout.rt.platform.security.ICredentialVerifier;
 import org.eclipse.scout.rt.platform.security.SimplePrincipal;
 import org.eclipse.scout.rt.platform.util.StringUtility;
@@ -35,7 +35,7 @@ public class LDAPCredentialVerifier implements ICredentialVerifier {
       Subject subject = new Subject();
       subject.getPrincipals().add(new SimplePrincipal("system_ldap_auth"));
       subject.setReadOnly();
-      RunContext runContext = ClientRunContexts.copyCurrent(true)
+      RunContext runContext = RunContexts.copyCurrent(true)
           .withSubject(subject);
 
       result = runContext.call(new Callable<Integer>() {

@@ -163,7 +163,7 @@ public class LDAPConnectorMK2 implements ILDAPConnector {
 
   /**
    * no cache here
-   * 
+   *
    * @param userDn
    * @return
    */
@@ -261,8 +261,8 @@ public class LDAPConnectorMK2 implements ILDAPConnector {
           @Override
           public Set<String> resolve(String key) {
             LOG.entry(key);
-            Set<String> result = getLdapGroupMembersNoCache(key);
-            return LOG.exit(result);
+            Set<String> result2 = getLdapGroupMembersNoCache(key);
+            return LOG.exit(result2);
           }
 
         }).withThreadSafe(true).build();

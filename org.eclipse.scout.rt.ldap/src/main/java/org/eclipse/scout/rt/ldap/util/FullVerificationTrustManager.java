@@ -111,7 +111,7 @@ public class FullVerificationTrustManager implements X509TrustManager {
 
       case "2": {
         // TODO
-        // verify if certificate is signed by one of the certificates present in the trust store (ks object) 
+        // verify if certificate is signed by one of the certificates present in the trust store (ks object)
         break;
       }
 
