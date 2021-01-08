@@ -4679,7 +4679,7 @@ export default class Table extends Widget {
       this.$data.setEnabled(enabled);
     }
 
-    this.$container.setTabbable(enabled);
+    this.$container.attr('tabIndex', enabled ? 0 : -1);
 
     if (this._isDataRendered()) {
       // Enable/disable all checkboxes

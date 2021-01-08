@@ -23,7 +23,11 @@
       border-radius: @control-alternative-border-radius;
     }
 
-    &:focus,
+    &:focus {
+      outline: none;
+    }
+
+    &:not(.disabled):focus,
     &.focused {
       #scout.focus-border();
     }

@@ -18,6 +18,7 @@ export default class KeyStroke {
 
     this.which = []; // keys which this keystroke is bound to. Typically, this is a single key, but may be multiple keys if handling the same action (e.g. ENTER and SPACE on a button).
     this.ctrl = false;
+    this.checkEnabled = true;
     this.alt = false;
     this.shift = false;
     this.preventDefault = true;
@@ -139,7 +140,7 @@ export default class KeyStroke {
         return false;
       }
       // Check enabled state
-      if (this.field.enabled !== undefined && !this.field.enabled) {
+      if (this.checkEnabled && this.field.enabled !== undefined && !this.field.enabled) {
         return false;
       }
     }
