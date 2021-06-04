@@ -66,7 +66,7 @@ public final class BinaryResourceUrlUtility {
     if (!StringUtility.hasText(iconId) || AbstractIcons.Null.equals(iconId)) {
       return null;
     }
-    if (iconId.startsWith("font:")) {
+    if (iconId.startsWith("font:") || iconId.startsWith("svg:")) {
       return iconId;
     }
     IconSpec iconSpec = IconLocator.instance().getIconSpec(iconId);

@@ -863,6 +863,17 @@ $.fn.icon = function(iconId, addToDomFunc) {
         .addClass('icon')
         .addClass(icon.appendCssClass('font-icon'))
         .text(icon.iconCharacter);
+    } else if (icon.isSvg()) {
+      removeIconElement.call(this, $icon);
+      let $svg = this.makeSVG('svg', 'svg-icon');
+      $svg.attr('style', 'width: 13px; height:18px');
+      this.data('$icon', $svg);
+      $svg.html('<use xlink:href="symbol-defs-stroke.svg#' + icon.iconName + '"></use>');
+      if (!addToDomFunc) {
+        this.prepend($svg);
+      } else {
+        addToDomFunc.call(this, $svg);
+      }
     } else {
       getOrCreateIconElement.call(this, $icon, '<img>', addToDomFunc)
         .attr('src', icon.iconUrl)
