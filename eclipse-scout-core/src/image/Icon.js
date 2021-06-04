@@ -60,6 +60,8 @@ export default class Icon extends Widget {
 
     if (!this.iconDesc || this.iconDesc.isFontIcon()) {
       this._renderFontIcon();
+    } else if (this.iconDesc.isSvg()) {
+      this._renderSvgIcon();
     } else {
       this._renderImageIcon();
     }
@@ -67,6 +69,17 @@ export default class Icon extends Widget {
       this._renderProperties();
     }
     this.invalidateLayoutTree();
+  }
+
+  _renderSvgIcon() {
+    this.$container = this.$parent.makeSVG('svg', 'svg-icon');
+    this.$container.html('<use xlink:href="symbol-defs.svg#' + this.iconDesc.iconName + '"></use>');
+    if (this.prepend) {
+      this.$container.prependTo(this.$parent);
+    } else {
+      this.$container.appendTo(this.$parent);
+    }
+    this.htmlComp = HtmlComponent.install(this.$container, this.session);
   }
 
   _renderFontIcon() {
