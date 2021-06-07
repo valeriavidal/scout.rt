@@ -73,7 +73,7 @@ export default class Icon extends Widget {
 
   _renderSvgIcon() {
     this.$container = this.$parent.makeSVG('svg', 'svg-icon');
-    this.$container.html('<use xlink:href="symbol-defs-stroke.svg#' + this.iconDesc.iconName + '"></use>');
+    this.$container.html('<use xlink:href="symbol-defs-outline.svg#' + this.iconDesc.iconName + '"></use>');
     if (this.prepend) {
       this.$container.prependTo(this.$parent);
     } else {
