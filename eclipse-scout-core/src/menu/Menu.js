@@ -292,10 +292,13 @@ export default class Menu extends Action {
 
     if (visible) {
       if (!this.$submenuIcon) {
-        let icon = icons.parseIconId(Menu.SUBMENU_ICON);
-        this.$submenuIcon = this.$container
-          .appendSpan('submenu-icon')
-          .text(icon.iconCharacter);
+        // let icon = icons.parseIconId('svg:');
+        this.$submenuIcon = this.$container.makeSVG('svg');
+        this.$submenuIcon.html('<use xlink:href="symbol-defs-outline.svg#arrow-down-1"></use>');
+        this.$submenuIcon.attr('style', 'margin-left: 8px; width: 10px; height: 16px; fill: currentColor; stroke: currentColor; stroke-width:2px');
+        // this.$submenuIcon = this.$container
+        //   .appendSpan('submenu-icon')
+        //   .text(icon.iconCharacter);
         this.invalidateLayoutTree();
       }
     } else {
