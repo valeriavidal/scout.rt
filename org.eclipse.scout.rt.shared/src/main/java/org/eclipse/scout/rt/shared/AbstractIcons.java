@@ -61,7 +61,7 @@ public abstract class AbstractIcons implements Serializable {
   public static final String LongArrowUpRemove = "font:\uE01E";
   public static final String FilterRemove = "font:\uE01F";
   public static final String Target = "font:\uE020";
-  public static final String World = "font:\uE021";
+  public static final String World = "svg:earth-3";//""font:\uE021";
   public static final String Chart = "font:\uE022";
   public static final String GraphBold = "font:\uE023";
   public static final String Category = IconsNew.Tags1;
@@ -87,7 +87,7 @@ public abstract class AbstractIcons implements Serializable {
   public static final String RemoveBold = "font:\uE045";
   public static final String Sum = "font:\ue02C";
   public static final String SumBold = "font:\ue025";
-  public static final String Pencil = IconsNew.Pencil;
+  public static final String Pencil = "svg:pencil";//IconsNew.Pencil;
   public static final String PencilBold = "font:\uE04B";
   public static final String PencilSolid = "font:\uE04F";
   public static final String Bold = "font:\uE051";

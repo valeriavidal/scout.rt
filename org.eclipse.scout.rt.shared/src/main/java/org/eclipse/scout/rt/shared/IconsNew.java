@@ -35,14 +35,14 @@ public class IconsNew implements Serializable {
   public static final String ConversationChat1 = "font:bsiIconsNew \uE906";
   public static final String DaySunrise2 = "font:bsiIconsNew \uE907";
   public static final String EmailActionUnread = "font:bsiIconsNew \uE908";
-  public static final String FolderBookmark1 = "font:bsiIconsNew \uE909";
+  public static final String FolderBookmark1 = "svg:folder-bookmark-1";//""font:bsiIconsNew \uE909";
   public static final String Pencil = "font:bsiIconsNew \uE90A";
   public static final String RatingStar = "font:bsiIconsNew \uE90B";
   public static final String Search = "font:bsiIconsNew \uE90C";
   public static final String Share2 = "font:bsiIconsNew \uE90D";
   public static final String ShoppingBagSide = "font:bsiIconsNew \uE90E";
   public static final String SingleManActionsShare1 = "font:bsiIconsNew \uE90F";
-  public static final String SingleNeutral = "font:bsiIconsNew \uE910";
+  public static final String SingleNeutral = "svg:single-neutral";//""font:bsiIconsNew \uE910";
   public static final String Tags1 = "font:bsiIconsNew \uE911";
   public static final String TaskListApprove = "font:bsiIconsNew \uE912";
   public static final String TaskListCheck = "font:bsiIconsNew \uE913";
