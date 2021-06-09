@@ -73,7 +73,21 @@ export default class Icon extends Widget {
 
   _renderSvgIcon() {
     this.$container = this.$parent.makeSVG('svg', 'svg-icon');
-    this.$container.html('<use xlink:href="symbol-defs-outline.svg#' + this.iconDesc.iconName + '"></use>');
+    this.$container.attr('preserveAspectRatio', 'xMinYMid');
+    // this.$container.attr('height', '16');
+    // this.$container.attr('viewBox', '9.362 0.753 5.25 22.5');
+    this.$container.html('<use xlink:href="symbol-defs-stroke.svg#' + this.iconDesc.iconName + '"></use>');
+    try {
+      let svgElem = this.$container[0];
+      let useElem = svgElem.firstElementChild;
+      useElem.addEventListener('load', () => {
+        let bbox = svgElem.getBBox();
+        this.$container.attr('viewBox', bbox.x + ' ' + bbox.y + ' 24 24');
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     if (this.prepend) {
       this.$container.prependTo(this.$parent);
     } else {

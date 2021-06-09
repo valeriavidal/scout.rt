@@ -868,7 +868,7 @@ $.fn.icon = function(iconId, addToDomFunc) {
       let $svg = this.makeSVG('svg', 'svg-icon');
       $svg.attr('style', 'width: 13px; height:18px');
       this.data('$icon', $svg);
-      $svg.html('<use xlink:href="symbol-defs-outline.svg#' + icon.iconName + '"></use>');
+      $svg.html('<use xlink:href="symbol-defs-stroke.svg#' + icon.iconName + '"></use>');
       if (!addToDomFunc) {
         this.prepend($svg);
       } else {

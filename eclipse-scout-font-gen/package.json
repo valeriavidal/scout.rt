@@ -1,0 +1,15 @@
+{
+  "name": "eclipse-scout-font-gen",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "index.js",
+  "scripts": {
+    "build": "node index.js"
+  },
+  "author": "Eclipse Scout",
+  "license": "EPL",
+  "dependencies": {
+    "svg-bounding-box": "0.2.1",
+    "@vusion/webfonts-generator": "0.7.3"
+  }
+}
