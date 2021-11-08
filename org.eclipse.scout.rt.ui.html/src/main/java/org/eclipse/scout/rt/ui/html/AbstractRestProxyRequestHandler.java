@@ -11,6 +11,7 @@
 package org.eclipse.scout.rt.ui.html;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
@@ -21,8 +22,12 @@ import org.eclipse.scout.rt.platform.BEANS;
 import org.eclipse.scout.rt.platform.util.StringUtility;
 import org.eclipse.scout.rt.server.commons.servlet.HttpProxy;
 import org.eclipse.scout.rt.server.commons.servlet.HttpProxyRequestOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractRestProxyRequestHandler extends AbstractUiServletRequestHandler {
+
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRestProxyRequestHandler.class);
 
   private HttpProxy m_proxy;
 
@@ -65,7 +70,13 @@ public abstract class AbstractRestProxyRequestHandler extends AbstractUiServletR
     if (!acceptRequest(req)) {
       return false;
     }
-    proxy(req, resp);
+    try {
+      proxy(req, resp);
+    }
+    catch (SocketException e) {
+      LOG.warn("{}: {}", e.getClass().getSimpleName(), e.getMessage());
+      resp.sendError(HttpServletResponse.SC_GATEWAY_TIMEOUT, e.getMessage());
+    }
     return true;
   }
 
