@@ -138,6 +138,43 @@ describe('main', () => {
 
   });
 
+  describe('assertPredicate', () => {
+
+    it('throws Error when predicate result or value is falsy', () => {
+      // noinspection JSCheckFunctionSignatures
+      expect(() => scout.assertPredicate()).toThrowError();
+      expect(() => scout.assertPredicate(() => false)).toThrowError();
+      expect(() => scout.assertPredicate(() => null)).toThrowError();
+      expect(() => scout.assertPredicate(() => undefined)).toThrowError();
+      expect(() => scout.assertPredicate(() => '')).toThrowError();
+      expect(() => scout.assertPredicate(() => 0)).toThrowError();
+      expect(() => scout.assertPredicate(false)).toThrowError();
+      expect(() => scout.assertPredicate(null)).toThrowError();
+      expect(() => scout.assertPredicate(undefined)).toThrowError();
+      expect(() => scout.assertPredicate('')).toThrowError();
+      expect(() => scout.assertPredicate(0)).toThrowError();
+
+      const arr = [];
+      const obj = {};
+      expect(scout.assertPredicate(() => true)).toBe(true);
+      expect(scout.assertPredicate(() => 'null')).toBe('null');
+      expect(scout.assertPredicate(() => 1 / 0)).toBe(Infinity);
+      expect(scout.assertPredicate(() => ' ')).toBe(' ');
+      expect(scout.assertPredicate(() => arr)).toBe(arr);
+      expect(scout.assertPredicate(() => obj)).toBe(obj);
+      expect(scout.assertPredicate(true)).toBe(true);
+      expect(scout.assertPredicate('null')).toBe('null');
+      expect(scout.assertPredicate(1 / 0)).toBe(Infinity);
+      expect(scout.assertPredicate(' ')).toBe(' ');
+      expect(scout.assertPredicate(arr)).toBe(arr);
+      expect(scout.assertPredicate(obj)).toBe(obj);
+
+      // Check that the given message is thrown
+      expect(() => scout.assertPredicate(null, 'not-good')).toThrowError('not-good');
+    });
+
+  });
+
   describe('isOneOf', () => {
 
     it('can check if value is one of multiple values', () => {

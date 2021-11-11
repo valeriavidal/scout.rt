@@ -99,6 +99,30 @@ export function assertInstance(value, type, msg) {
 }
 
 /**
+ * Evaluates the given function and throws an error if the result is falsy. Otherwise, the result is returned.
+ * If the argument is not a function, it is treated as the value to check.
+ *
+ * @template T
+ * @param {function():T|T} predicateOrValue - predicate to evaluate or value to check for "truthiness"
+ * @param {string} [msg] - optional error message when the assertion fails
+ * @return {T}
+ */
+export function assertPredicate(predicateOrValue, msg) {
+  if (typeof predicateOrValue === 'function') {
+    let value = predicateOrValue();
+    if (!value) {
+      throw new Error(msg || 'Expected predicate to return a truthy value, but was ' + value);
+    }
+    return value;
+  }
+  let value = predicateOrValue;
+  if (!value) {
+    throw new Error(msg || 'Expected value to be truthy, but was ' + value);
+  }
+  return value;
+}
+
+/**
  * Checks if one of the arguments from 1-n is equal to the first argument.
  * @param value
  * @param args to check against the value, may be an array or a variable argument list.
@@ -386,6 +410,7 @@ export default {
   assertProperty,
   assertValue,
   assertInstance,
+  assertPredicate,
   isOneOf,
   create,
   prepareDOM,
