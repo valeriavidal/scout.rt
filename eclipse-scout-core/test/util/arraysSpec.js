@@ -253,6 +253,28 @@ describe('scout.arrays', () => {
 
   });
 
+  describe('length', () => {
+
+    it('returns the length of the array', () => {
+      expect(arrays.length()).toBe(0);
+      expect(arrays.length(null)).toBe(0);
+      expect(arrays.length('test')).toBe(0);
+      expect(arrays.length(1)).toBe(0);
+      expect(arrays.length([])).toBe(0);
+      expect(arrays.length([null])).toBe(1);
+      expect(arrays.length([null, null])).toBe(2);
+      expect(arrays.length([1, 2, 3])).toBe(3);
+      expect(arrays.length(['x', undefined, 'y', null, 'z'])).toBe(5);
+      expect(arrays.length([[1, 2, 3]])).toBe(1);
+      expect(arrays.length({length: 666})).toBe(0);
+      expect(arrays.length({0: 'a', 1: 'b'})).toBe(0);
+      const sparseArray = [0.1, 0.2, 0.3];
+      sparseArray[99] = 0.9;
+      expect(arrays.length(sparseArray)).toBe(100);
+    });
+
+  });
+
   describe('max', () => {
     it('returns 0 iff input contains 0', () => {
       expect(arrays.max([null, 5])).toBe(5);

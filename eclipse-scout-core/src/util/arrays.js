@@ -206,6 +206,18 @@ export function containsAll(haystack, needles) {
   });
 }
 
+/**
+ * If the argument is an array, its length is returned. Otherwise, 0 is returned.
+ *
+ * @return {number}
+ */
+export function length(arr) {
+  if (Array.isArray(arr)) {
+    return arr.length;
+  }
+  return 0;
+}
+
 export function first(arr) {
   if (Array.isArray(arr)) {
     return arr[0];
@@ -579,6 +591,7 @@ export default {
   contains,
   containsAll,
   containsAny,
+  length,
   diff,
   eachSibling,
   empty,
