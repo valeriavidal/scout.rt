@@ -2893,7 +2893,7 @@ export default class Tree extends Widget {
     }
     nodes = nodes.filter(function(node) {
       let index = indexHint === undefined ? this.visibleNodesFlat.indexOf(node) : indexHint;
-      if (index === -1 || !(this.viewRangeRendered.from + this.viewRangeSize >= index && this.viewRangeRendered.from <= index && this.viewRangeRendered.size() > 0) || node.attached) {
+      if (index === -1 || !(this.viewRangeRendered.from + this.viewRangeSize >= index && this.viewRangeRendered.from <= index && this.viewRangeSize > 0) || node.attached) {
         // node is not visible
         return false;
       }
